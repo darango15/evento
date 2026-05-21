@@ -1,0 +1,22 @@
+# ─── Entorno ───────────────────────────────────────────────
+.env
+
+# ─── Dependencias ──────────────────────────────────────────
+/vendor/
+
+# ─── Archivos generados ────────────────────────────────────
+/public/assets/uploads/
+/logs/
+
+# ─── Base de datos ─────────────────────────────────────────
+/database/*.sql
+
+# ─── Sistema operativo ─────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── IDEs ──────────────────────────────────────────────────
+.idea/
+.vscode/
+*.code-workspace
