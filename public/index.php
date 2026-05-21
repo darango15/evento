@@ -103,6 +103,17 @@ set_exception_handler(function (\Throwable $e) {
 
     http_response_code(500);
 
+    // Rutas API siempre responden JSON
+    $uri = $_SERVER['REQUEST_URI'] ?? '';
+    if (str_starts_with(strtok($uri, '?'), '/api/')) {
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode([
+            'success' => false,
+            'message' => isDebug() ? $e->getMessage() : 'Error interno del servidor.',
+        ]);
+        exit(1);
+    }
+
     if (isDebug()) {
         echo '<pre style="background:#1a1a2e;color:#e94560;padding:2rem;font-family:monospace;">';
         echo '<strong>Error 500:</strong> ' . htmlspecialchars($e->getMessage()) . "\n\n";

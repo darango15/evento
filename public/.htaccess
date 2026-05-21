@@ -8,6 +8,9 @@ Options -Indexes
     RewriteEngine On
     RewriteBase /
 
+    # Pasar el header Authorization a PHP (Apache lo elimina por defecto)
+    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
     # No reescribir archivos y directorios que existan físicamente
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -34,7 +37,12 @@ ServerSignature Off
 </IfModule>
 
 # Bloquear acceso a archivos sensibles
-<FilesMatch "\.(env|sql|log|json|lock|md|gitignore)$">
+<FilesMatch "\.(env|sql|log|lock|md|gitignore)$">
+    Require all denied
+</FilesMatch>
+
+# Bloquear JSON excepto manifest.json (necesario para PWA)
+<FilesMatch "^(?!manifest).*\.json$">
     Require all denied
 </FilesMatch>
 

@@ -357,7 +357,10 @@ class ApiController extends Controller
      */
     private function getBearerToken(): string
     {
-        $auth = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        $auth = $_SERVER['HTTP_AUTHORIZATION']
+             ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION']
+             ?? getallheaders()['Authorization']
+             ?? '';
 
         if (str_starts_with($auth, 'Bearer ')) {
             return substr($auth, 7);

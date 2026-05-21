@@ -1,0 +1,21 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirigir todo a public/ manteniendo la URL
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/$1 [L,QSA]
+</IfModule>
+
+# Bloquear acceso directo a archivos sensibles
+<FilesMatch "\.(env|sql|log|json|lock|md|gitignore)$">
+    Require all denied
+</FilesMatch>
+
+# Bloquear acceso a directorios internos
+<DirectoryMatch "^.*(app|views|database|logs|vendor)">
+    Require all denied
+</DirectoryMatch>
