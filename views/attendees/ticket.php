@@ -1,3 +1,4 @@
+<?php /** @var array $attendee */ ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -63,7 +64,7 @@
 
     /* ── Header ─────────────────────────────────────────── */
     .ticket-header {
-        background: linear-gradient(135deg, #4338ca 0%, #6d28d9 60%, #7c3aed 100%);
+        background: linear-gradient(135deg, #0098d4 0%, #00ADEF 60%, #00c5ff 100%);
         padding: 36px 40px 40px;
         color: white;
         position: relative;
@@ -102,11 +103,22 @@
         font-size: 28px;
         font-weight: 900;
         line-height: 1.15;
-        margin-bottom: 18px;
+        margin-bottom: 12px;
         letter-spacing: -0.03em;
         position: relative;
         z-index: 1;
         max-width: 520px;
+    }
+    .ticket-attendee-name {
+        font-size: clamp(24px, 5vw, 36px);
+        font-weight: 900;
+        color: white;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        margin-bottom: 14px;
+        position: relative;
+        z-index: 1;
+        word-break: break-word;
     }
     .ticket-meta {
         display: flex;
@@ -144,123 +156,98 @@
 
     /* ── Body ────────────────────────────────────────────── */
     .ticket-body {
-        padding: 36px 40px;
+        padding: 20px 28px 24px;
+        background: #ffffff;
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: 32px;
-        align-items: center;
-        background: #ffffff;
+        gap: 20px;
+        align-items: start;
     }
 
     /* Tipo de participante */
     .participant-type {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 5px 14px 5px 10px;
+        gap: 5px;
+        padding: 3px 10px 3px 7px;
         border-radius: 999px;
-        font-size: 11px;
+        font-size: 10px;
         font-weight: 800;
         letter-spacing: 0.07em;
         text-transform: uppercase;
-        margin-bottom: 16px;
+        margin-bottom: 10px;
     }
     .participant-type-dot {
-        width: 6px;
-        height: 6px;
+        width: 5px; height: 5px;
         border-radius: 50%;
         flex-shrink: 0;
     }
-    .pt-registered {
-        background: #ede9fe;
-        color: #5b21b6;
-    }
-    .pt-registered .participant-type-dot { background: #7c3aed; }
-    .pt-checked_in {
-        background: #d1fae5;
-        color: #065f46;
-    }
+    .pt-registered { background: #d0f5f2; color: #027a6e; }
+    .pt-registered .participant-type-dot { background: #02b6a5; }
+    .pt-checked_in { background: #d1fae5; color: #065f46; }
     .pt-checked_in .participant-type-dot { background: #059669; }
 
-    .attendee-name {
-        font-size: 26px;
-        font-weight: 800;
+    .attendee-name-body {
+        font-size: clamp(22px, 4vw, 32px);
+        font-weight: 900;
         color: #0f172a;
-        margin-bottom: 3px;
         letter-spacing: -0.02em;
-        line-height: 1.2;
-    }
-    .attendee-email {
-        font-size: 14px;
-        color: #64748b;
-        margin-bottom: 28px;
-        font-weight: 400;
+        line-height: 1.1;
+        margin-bottom: 14px;
+        word-break: break-word;
     }
 
     .ticket-details {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .detail-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .detail-icon {
+        width: 32px; height: 32px;
+        border-radius: 8px;
+        background: #f1f5f9;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 15px;
+        flex-shrink: 0;
     }
     .detail-label {
-        font-size: 10px;
+        font-size: 9px;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         color: #94a3b8;
         font-weight: 700;
-        margin-bottom: 4px;
-        display: flex;
-        align-items: center;
-        gap: 4px;
+        margin-bottom: 1px;
     }
     .detail-value {
         font-size: 14px;
         font-weight: 600;
         color: #1e293b;
+        line-height: 1.2;
     }
 
-    /* ── QR ──────────────────────────────────────────────── */
+    /* ── QR flotante ─────────────────────────────────────── */
     .ticket-qr {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 10px;
-        background: #f8fafc;
-        padding: 20px 18px;
-        border-radius: 18px;
-        border: 1px solid #e8edf4;
-        min-width: 176px;
-    }
-    .qr-title {
-        font-size: 10px;
-        font-weight: 800;
-        color: #94a3b8;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-    }
-    .qr-frame {
         background: white;
-        border-radius: 12px;
-        padding: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        padding: 6px;
+        border-radius: 18px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+        margin-top: -80px;
+        position: relative;
+        z-index: 5;
     }
     .qr-frame img {
         display: block;
-        width: 136px;
-        height: 136px;
-    }
-    .qr-code-text {
-        font-family: 'Courier New', monospace;
-        font-size: 10.5px;
-        color: #5b21b6;
-        background: #ede9fe;
-        padding: 5px 10px;
-        border-radius: 6px;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        word-break: break-all;
-        max-width: 152px;
-        text-align: center;
+        width: 230px;
+        height: 230px;
+        border-radius: 12px;
     }
 
     /* ── Footer ──────────────────────────────────────────── */
@@ -286,29 +273,41 @@
 
     /* ── Print ───────────────────────────────────────────── */
     @media print {
-        body { background: white; padding: 0; min-height: auto; }
+        @page { size: 9cm 7cm; margin: 0; }
+        body { background: white; padding: 0; min-height: auto; display: block; }
         .print-btn { display: none !important; }
-        .ticket {
-            box-shadow: none;
-            border: 1px solid #cbd5e1;
-            border-radius: 16px;
-        }
-        .ticket-perforation::before,
-        .ticket-perforation::after { background: white; border: 1px solid #cbd5e1; }
-        .ticket-perforation::before { left: -19px; border-right: none; }
-        .ticket-perforation::after  { right: -19px; border-left: none; }
+        .ticket-wrap { width: 9cm; max-width: 9cm; }
+        .ticket { box-shadow: none; border: 1px solid #cbd5e1; border-radius: 8px; page-break-inside: avoid; }
+        .ticket-header { padding: 10px 14px 12px; }
+        .ticket-brand { font-size: 8px; margin-bottom: 4px; }
+        .ticket-event-name { font-size: 12px; margin-bottom: 4px; }
+        .ticket-attendee-name { font-size: 16px; margin-bottom: 6px; }
+        .ticket-meta { font-size: 9px; }
+        .ticket-body { padding: 10px 14px; gap: 10px; }
+        .participant-type { font-size: 8px; padding: 2px 8px 2px 6px; margin-bottom: 4px; }
+        .attendee-email { font-size: 9px; margin-bottom: 8px; }
+        .detail-label { font-size: 7px; }
+        .detail-value { font-size: 11px; }
+        .ticket-qr { padding: 6px; gap: 5px; }
+        .qr-frame { padding: 4px; }
+        .qr-frame img { width: 90px; height: 90px; }
+        .qr-code-text { font-size: 7px; padding: 3px 6px; }
+        .ticket-footer { padding: 6px 14px; }
+        .ticket-footer-note { font-size: 8px; }
+        .ticket-footer-id { font-size: 9px; }
+        .ticket-perforation { display: none; }
         .ticket-header {
-            background: linear-gradient(135deg, #4338ca, #7c3aed) !important;
+            background: linear-gradient(135deg, #0098d4, #00ADEF) !important;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
     }
 
     @media (max-width: 560px) {
-        .ticket-body { grid-template-columns: 1fr; gap: 28px; }
+        .ticket-bottom { grid-template-columns: 1fr; }
         .ticket-qr { flex-direction: row; flex-wrap: wrap; justify-content: center; min-width: unset; }
-        .ticket-event-name { font-size: 22px; }
-        .ticket-header, .ticket-body, .ticket-footer { padding-left: 24px; padding-right: 24px; }
+        .ticket-event-name { font-size: 20px; }
+        .ticket-header, .ticket-body, .ticket-footer { padding-left: 20px; padding-right: 20px; }
     }
     </style>
 </head>
@@ -321,7 +320,7 @@
 
         <!-- Header -->
         <div class="ticket-header">
-            <div class="ticket-brand">Ticket de Acceso · EventoSaaS</div>
+            <div class="ticket-brand">Ticket de Acceso</div>
             <div class="ticket-event-name"><?= e($attendee['event_name']) ?></div>
             <div class="ticket-meta">
                 <span class="ticket-meta-item">📅 <?= formatDate($attendee['start_date']) ?></span>
@@ -336,60 +335,77 @@
 
         <!-- Body -->
         <div class="ticket-body">
+            <?php
+                $isCheckedIn = $attendee['status'] === 'checked_in';
+                $ptClass     = $isCheckedIn ? 'pt-checked_in' : 'pt-registered';
+                $tipoLabels  = [
+                    'socio_activo'          => 'Socio Activo',
+                    'socio_emerito'         => 'Socio Emérito',
+                    'no_socio'              => 'No Socio',
+                    'medico_general'        => 'Médico General',
+                    'residente_estudiante'  => 'Residente / Estudiante',
+                    'enfermera_profesional' => 'Enfermera Profesional',
+                    'junta_directiva'       => 'Junta Directiva',
+                    'conferencista'         => 'Conferencista',
+                    'comite_cientifico'     => 'Comité Científico',
+                ];
+                $rawTipo          = $attendee['participant_type'] ?? '';
+                $participantLabel = $tipoLabels[$rawTipo]
+                    ?? (!empty($rawTipo) ? ucwords(str_replace('_', ' ', $rawTipo)) : ($isCheckedIn ? 'Ingresó' : 'Asistente'));
+            ?>
+
+            <!-- Izquierda: nombre + badge + datos -->
             <div>
-                <?php
-                    $isCheckedIn      = $attendee['status'] === 'checked_in';
-                    $participantLabel = !empty($attendee['position'])
-                        ? $attendee['position']
-                        : ($isCheckedIn ? 'Ingresó' : 'Asistente');
-                    $ptClass = $isCheckedIn ? 'pt-checked_in' : 'pt-registered';
-                ?>
                 <span class="participant-type <?= $ptClass ?>">
                     <span class="participant-type-dot"></span>
                     <?= e($participantLabel) ?>
                 </span>
-
-                <div class="attendee-name"><?= e($attendee['full_name']) ?></div>
-                <div class="attendee-email"><?= e($attendee['email']) ?></div>
-
+                <div class="attendee-name-body"><?= e($attendee['full_name']) ?></div>
                 <div class="ticket-details">
-                    <?php if (!empty($attendee['company'])): ?>
-                    <div>
-                        <div class="detail-label">🏥 Institución</div>
-                        <div class="detail-value"><?= e($attendee['company']) ?></div>
+                    <div class="detail-row">
+                        <div class="detail-icon">📧</div>
+                        <div>
+                            <div class="detail-label">Email</div>
+                            <div class="detail-value"><?= e($attendee['email']) ?></div>
+                        </div>
+                    </div>
+                    <?php if (!empty($attendee['id_document'])): ?>
+                    <div class="detail-row">
+                        <div class="detail-icon">🪪</div>
+                        <div>
+                            <div class="detail-label">Cédula</div>
+                            <div class="detail-value"><?= e($attendee['id_document']) ?></div>
+                        </div>
                     </div>
                     <?php endif; ?>
                     <?php if (!empty($attendee['phone'])): ?>
-                    <div>
-                        <div class="detail-label">📱 Teléfono</div>
-                        <div class="detail-value"><?= e($attendee['phone']) ?></div>
+                    <div class="detail-row">
+                        <div class="detail-icon">📱</div>
+                        <div>
+                            <div class="detail-label">Teléfono</div>
+                            <div class="detail-value"><?= e($attendee['phone']) ?></div>
+                        </div>
                     </div>
                     <?php endif; ?>
-                    <div>
-                        <div class="detail-label">🗓 Registro</div>
-                        <div class="detail-value"><?= formatDate($attendee['registration_date'], true) ?></div>
-                    </div>
                 </div>
             </div>
 
-            <!-- QR -->
-            <div class="ticket-qr">
-                <div class="qr-title">Código de acceso</div>
-                <div class="qr-frame">
+            <!-- Derecha: QR flotante + código -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+                <div class="ticket-qr">
                     <?php
-                        // Usar QR guardado en disco si existe, sino generar vía API
                         if (!empty($attendee['qr_code_path']) && file_exists(PUBLIC_PATH . $attendee['qr_code_path'])) {
                             $qrImgSrc = asset(ltrim($attendee['qr_code_path'], '/assets/'));
                         } else {
                             $targetUrl = url("/registro/ticket/" . $attendee['check_in_code']);
-                            $qrImgSrc  = (new \App\Services\QRGenerator())->generateBase64($targetUrl, '#6d28d9');
+                            $qrImgSrc  = (new \App\Services\QRGenerator())->generateBase64($targetUrl, '#02b6a5');
                         }
                     ?>
                     <img src="<?= $qrImgSrc ?>"
                          alt="QR <?= e($attendee['check_in_code']) ?>"
-                         width="136" height="136">
+                         width="210" height="210">
                 </div>
-                <div class="qr-code-text"><?= e($attendee['check_in_code']) ?></div>
+                <div style="font-family:'Courier New',monospace;font-size:15px;color:#027a6e;background:#d0f5f2;padding:8px 18px;border-radius:8px;font-weight:800;letter-spacing:0.05em;text-align:center;"><?= e($attendee['check_in_code']) ?></div>
             </div>
         </div>
 
