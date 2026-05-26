@@ -6,6 +6,7 @@
     </div>
     <div class="d-flex gap-2">
         <a href="/admin/events/<?= $event['id'] ?>" class="btn btn-ghost btn-sm">← Evento</a>
+        <a href="/admin/events/<?= $event['id'] ?>/tickets/print" target="_blank" class="btn btn-ghost btn-sm">🖨️ Imprimir Tickets</a>
         <a href="/admin/events/<?= $event['id'] ?>/checkin" class="btn btn-success btn-sm">✅ Check-in</a>
     </div>
 </div>

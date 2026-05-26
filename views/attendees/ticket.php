@@ -100,11 +100,11 @@
         z-index: 1;
     }
     .ticket-event-name {
-        font-size: 28px;
+        font-size: 18px;
         font-weight: 900;
-        line-height: 1.15;
-        margin-bottom: 12px;
-        letter-spacing: -0.03em;
+        line-height: 1.2;
+        margin-bottom: 10px;
+        letter-spacing: -0.02em;
         position: relative;
         z-index: 1;
         max-width: 520px;
@@ -239,14 +239,14 @@
         padding: 6px;
         border-radius: 18px;
         box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
-        margin-top: -80px;
+        margin-top: -130px;
         position: relative;
         z-index: 5;
     }
     .qr-frame img {
         display: block;
-        width: 230px;
-        height: 230px;
+        width: 270px;
+        height: 270px;
         border-radius: 12px;
     }
 
@@ -280,7 +280,7 @@
         .ticket { box-shadow: none; border: 1px solid #cbd5e1; border-radius: 8px; page-break-inside: avoid; }
         .ticket-header { padding: 10px 14px 12px; }
         .ticket-brand { font-size: 8px; margin-bottom: 4px; }
-        .ticket-event-name { font-size: 12px; margin-bottom: 4px; }
+        .ticket-event-name { font-size: 10px; margin-bottom: 4px; }
         .ticket-attendee-name { font-size: 16px; margin-bottom: 6px; }
         .ticket-meta { font-size: 9px; }
         .ticket-body { padding: 10px 14px; gap: 10px; }
@@ -290,7 +290,7 @@
         .detail-value { font-size: 11px; }
         .ticket-qr { padding: 6px; gap: 5px; }
         .qr-frame { padding: 4px; }
-        .qr-frame img { width: 90px; height: 90px; }
+        .qr-frame img { width: 110px; height: 110px; }
         .qr-code-text { font-size: 7px; padding: 3px 6px; }
         .ticket-footer { padding: 6px 14px; }
         .ticket-footer-note { font-size: 8px; }
@@ -414,28 +414,12 @@
                 </span>
                 <div class="attendee-name-body"><?= e($attendee['full_name']) ?></div>
                 <div class="ticket-details">
-                    <div class="detail-row">
-                        <div class="detail-icon">📧</div>
-                        <div>
-                            <div class="detail-label">Email</div>
-                            <div class="detail-value"><?= e($attendee['email']) ?></div>
-                        </div>
-                    </div>
                     <?php if (!empty($attendee['id_document'])): ?>
                     <div class="detail-row">
                         <div class="detail-icon">🪪</div>
                         <div>
                             <div class="detail-label">Cédula</div>
                             <div class="detail-value"><?= e($attendee['id_document']) ?></div>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-                    <?php if (!empty($attendee['phone'])): ?>
-                    <div class="detail-row">
-                        <div class="detail-icon">📱</div>
-                        <div>
-                            <div class="detail-label">Teléfono</div>
-                            <div class="detail-value"><?= e($attendee['phone']) ?></div>
                         </div>
                     </div>
                     <?php endif; ?>
@@ -455,7 +439,7 @@
                     ?>
                     <img src="<?= $qrImgSrc ?>"
                          alt="QR <?= e($attendee['check_in_code']) ?>"
-                         width="210" height="210">
+                         width="270" height="270">
                 </div>
                 <div style="font-family:'Courier New',monospace;font-size:15px;color:#027a6e;background:#d0f5f2;padding:8px 18px;border-radius:8px;font-weight:800;letter-spacing:0.05em;text-align:center;"><?= e($attendee['check_in_code']) ?></div>
             </div>

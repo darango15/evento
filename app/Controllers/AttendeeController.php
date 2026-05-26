@@ -150,6 +150,54 @@ class AttendeeController extends Controller
     }
 
     /**
+     * GET /registro/qr/{code}
+     * Sirve la imagen PNG del QR de un asistente (teal #02b6a5).
+     * Usa el archivo guardado en disco si existe; si no, lo genera y lo guarda.
+     */
+    public function qrImage(string $code): void
+    {
+        $code     = strtoupper($code);
+        $attendee = Attendee::findByCode($code);
+        if (!$attendee) {
+            http_response_code(404);
+            exit;
+        }
+
+        // Servir archivo guardado si existe
+        if (!empty($attendee['qr_code_path'])) {
+            $abs = PUBLIC_PATH . $attendee['qr_code_path'];
+            if (file_exists($abs)) {
+                header('Content-Type: image/png');
+                header('Cache-Control: public, max-age=604800');
+                readfile($abs);
+                exit;
+            }
+        }
+
+        // Generar desde el API externo (teal), guardarlo y servir
+        try {
+            $qrGen     = new QRGenerator();
+            $targetUrl = url("/registro/ticket/{$code}");
+            $png       = $qrGen->fetchPng($targetUrl, '#02b6a5');
+
+            // Guardar para futuras cargas
+            try {
+                $filename = "t{$attendee['tenant_id']}_e{$attendee['event_id']}_{$code}";
+                $path     = $qrGen->generate($targetUrl, $filename, '#02b6a5');
+                Attendee::update((int)$attendee['id'], ['qr_code_path' => $path]);
+            } catch (\Throwable) {}
+
+            header('Content-Type: image/png');
+            header('Cache-Control: public, max-age=604800');
+            echo $png;
+        } catch (\Throwable $e) {
+            appLog('error', 'qrImage failed: ' . $e->getMessage());
+            http_response_code(503);
+        }
+        exit;
+    }
+
+    /**
      * GET /registro/ticket/{code}
      * Ticket imprimible con código QR.
      */
@@ -262,6 +310,24 @@ class AttendeeController extends Controller
 
         $this->flash('success', 'Registro restaurado correctamente.');
         $this->redirect("/admin/events/{$attendee['event_id']}/attendees");
+    }
+
+    /**
+     * GET /admin/events/{eventId}/tickets/print
+     * Vista de impresión masiva de tickets (2 columnas, tamaño carta).
+     */
+    public function printTickets(string $eventId): void
+    {
+        $event   = $this->findEventOrAbort((int)$eventId);
+        $perPage = min(5000, max(1, (int)($_GET['limit'] ?? 5000)));
+        $result  = Attendee::paginate((int)$eventId, null, '', 1, $perPage);
+
+        $this->renderPartial('attendees/tickets_print', [
+            'title'     => 'Tickets — ' . $event['name'],
+            'event'     => $event,
+            'attendees' => $result['data'],
+            'total'     => $result['total'],
+        ]);
     }
 
     // ─────────────────────────────────────────────────────────────────────────

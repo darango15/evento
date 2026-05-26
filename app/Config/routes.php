@@ -36,6 +36,7 @@ $router->get('/eventos/{slug}/registro',                    [AttendeeController:
 $router->post('/eventos/{slug}/registro',                   [AttendeeController::class, 'register']);
 $router->get('/eventos/{slug}/confirmacion/{code}',         [AttendeeController::class, 'confirmation']);
 $router->get('/registro/ticket/{code}',                     [AttendeeController::class, 'ticket']);
+$router->get('/registro/qr/{code}',                         [AttendeeController::class, 'qrImage']);
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Autenticación
@@ -75,6 +76,7 @@ $router->group('/admin', ['auth', 'tenant'], function ($r) {
 
     // Asistentes
     $r->get('/events/{eventId}/attendees',           [AttendeeController::class, 'index']);
+    $r->get('/events/{eventId}/tickets/print',       [AttendeeController::class, 'printTickets']);
     $r->get('/attendees/{id}',                       [AttendeeController::class, 'show']);
     $r->delete('/attendees/{id}',                    [AttendeeController::class, 'destroy']);
     $r->post('/attendees/{id}/restore',              [AttendeeController::class, 'restore']);
