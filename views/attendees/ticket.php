@@ -303,11 +303,63 @@
         }
     }
 
-    @media (max-width: 560px) {
-        .ticket-bottom { grid-template-columns: 1fr; }
-        .ticket-qr { flex-direction: row; flex-wrap: wrap; justify-content: center; min-width: unset; }
-        .ticket-event-name { font-size: 20px; }
-        .ticket-header, .ticket-body, .ticket-footer { padding-left: 20px; padding-right: 20px; }
+    @media (max-width: 600px) {
+        body { padding: 0; }
+
+        .ticket-wrap { max-width: 100%; }
+
+        .ticket {
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* Header compacto */
+        .ticket-header {
+            padding: 20px 20px 70px; /* espacio abajo para el QR flotante */
+        }
+        .ticket-event-name { font-size: 20px; margin-bottom: 8px; }
+        .ticket-brand { font-size: 10px; margin-bottom: 8px; }
+        .ticket-meta { font-size: 12px; }
+
+        /* Perforación */
+        .ticket-perforation::before { left: -14px; width: 28px; height: 28px; top: -14px; }
+        .ticket-perforation::after  { right: -14px; width: 28px; height: 28px; top: -14px; }
+
+        /* Body: columna única, QR arriba centrado */
+        .ticket-body {
+            grid-template-columns: 1fr;
+            padding: 16px 20px 20px;
+            gap: 20px;
+        }
+
+        /* QR: centrado, sin float negativo */
+        .ticket-body > div:last-child {
+            order: -1;           /* QR va primero */
+            align-items: center;
+            margin-top: -60px;   /* flota sobre header */
+        }
+
+        .ticket-qr {
+            margin-top: 0;
+            padding: 6px;
+        }
+
+        .qr-frame img {
+            width: 180px;
+            height: 180px;
+        }
+
+        /* Datos: más compactos */
+        .attendee-name-body { font-size: 24px; }
+        .detail-icon { width: 28px; height: 28px; font-size: 13px; }
+        .detail-value { font-size: 13px; }
+
+        /* Footer */
+        .ticket-footer { padding: 12px 20px; }
+        .ticket-footer-note { font-size: 11px; }
+
+        /* Botón imprimir */
+        .print-btn { border-radius: 0; margin-bottom: 0; }
     }
     </style>
 </head>
